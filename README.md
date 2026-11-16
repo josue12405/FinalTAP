@@ -3,7 +3,7 @@
 Aplicación de escritorio desarrollada en **JavaFX** bajo la arquitectura **MVC** con persistencia en **MySQL**, diseñada para automatizar el control de habitaciones, huéspedes, tarifas y reservaciones de un hotel.
 
 ## Autor
-* **Josué Abraham Barrera Jiménez** — Instituto Tecnológico de Celaya (Tópicos Avanzados de Programación)[cite: 21]
+* **Josué Abraham Barrera Jiménez** — Instituto Tecnológico de Celaya (Tópicos Avanzados de Programación)
 
 ## Características Principales
 * Autenticación Segura: Inicio de sesión con validación de credenciales contra base de datos y contraseñas encriptadas mediante el algoritmo SHA-1.
