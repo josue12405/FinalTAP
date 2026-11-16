@@ -14,5 +14,6 @@ module com.example.proyectofinaltap {
     requires com.almasb.fxgl.all;
 
     opens com.example.proyectofinaltap to javafx.fxml;
+    opens com.example.proyectofinaltap.controller to javafx.fxml;
     exports com.example.proyectofinaltap;
 }
