@@ -1,9 +1,16 @@
 package com.example.proyectofinaltap.controller;
 
+import com.example.proyectofinaltap.dao.UsuarioDAO;
+import com.example.proyectofinaltap.model.Usuario;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginController {
 
@@ -16,6 +23,8 @@ public class LoginController {
     @FXML
     private Label lblMensaje;
 
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+
     @FXML
     private void iniciarSesion() {
         String usuario = txtUsuario.getText().trim();
@@ -23,8 +32,33 @@ public class LoginController {
 
         if (usuario.isEmpty() || pass.isEmpty()) {
             lblMensaje.setText("Completa todos los campos");
+            return;
+        }
+
+        Usuario userLogueado = usuarioDAO.autenticar(usuario, pass);
+
+        if (userLogueado != null) {
+            abrirDashboard(userLogueado);
         } else {
-            lblMensaje.setText("Validando usuario: " + usuario);
+            lblMensaje.setText("Usuario o contraseña incorrectos");
+        }
+    }
+
+    private void abrirDashboard(Usuario user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectofinaltap/dashboard-view.fxml"));
+            Scene scene = new Scene(loader.load(), 950, 620);
+
+            DashboardController dashController = loader.getController();
+            dashController.setDatosUsuario(user.getNombreCompleto(), user.getRol());
+
+            Stage stage = (Stage) txtUsuario.getScene().getWindow();
+            stage.setTitle("Grand Horizon — " + user.getNombreCompleto() + " (" + user.getRol() + ")");
+            stage.setScene(scene);
+            stage.centerOnScreen();
+        } catch (IOException e) {
+            lblMensaje.setText("Falta crear dashboard-view.fxml en resources");
+            e.printStackTrace();
         }
     }
 }
