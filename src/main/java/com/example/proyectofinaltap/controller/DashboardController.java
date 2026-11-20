@@ -37,7 +37,16 @@ public class DashboardController {
     private void mostrarHabitaciones() {
         activarBoton(btnHabitaciones);
         lblTituloSeccion.setText("Gestión de Habitaciones");
-        lblPlaceholder.setText("Aquí cargaremos la tabla de Habitaciones (101, 102, 201, 202, 301) y su CRUD.");
+        cargarVista("/com/example/proyectofinaltap/habitaciones-view.fxml");
+    }
+
+    private void cargarVista(String rutaFxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFxml));
+            contenedorCentral.getChildren().setAll((javafx.scene.Node) loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

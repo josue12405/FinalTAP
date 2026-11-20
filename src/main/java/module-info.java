@@ -12,7 +12,7 @@ module com.example.proyectofinaltap {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
-
+    opens com.example.proyectofinaltap.model to javafx.base;
     opens com.example.proyectofinaltap to javafx.fxml;
     opens com.example.proyectofinaltap.controller to javafx.fxml;
     exports com.example.proyectofinaltap;
