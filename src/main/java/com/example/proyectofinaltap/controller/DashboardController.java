@@ -53,7 +53,7 @@ public class DashboardController {
     private void mostrarHuespedes() {
         activarBoton(btnHuespedes);
         lblTituloSeccion.setText("Directorio de Huéspedes");
-        lblPlaceholder.setText("Aquí cargaremos el registro y consulta de Huéspedes.");
+        cargarVista("/com/example/proyectofinaltap/huespedes-view.fxml");
     }
 
     @FXML
