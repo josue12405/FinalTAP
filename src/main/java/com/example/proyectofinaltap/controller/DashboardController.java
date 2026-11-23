@@ -1,7 +1,9 @@
 package com.example.proyectofinaltap.controller;
 
+import com.example.proyectofinaltap.model.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,6 +23,8 @@ public class DashboardController {
     @FXML private Button btnHuespedes;
     @FXML private Button btnReservaciones;
 
+    private Usuario usuarioActual;
+
     private static final String ESTILO_ACTIVO = "-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 0 15 0 15;";
     private static final String ESTILO_INACTIVO = "-fx-background-color: transparent; -fx-text-fill: #cbd5e1; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 0 15 0 15;";
 
@@ -29,21 +33,25 @@ public class DashboardController {
         mostrarHabitaciones();
     }
 
-    public void setDatosUsuario(String nombre, String rol) {
-        lblUsuarioActivo.setText(nombre + " • " + rol);
+    public void setUsuario(Usuario usuario) {
+        this.usuarioActual = usuario;
+        if (usuario != null) {
+            lblUsuarioActivo.setText(usuario.getNombreCompleto() + " • " + usuario.getRol());
+            // Refresca la vista actual para aplicar permisos RBAC del rol
+            mostrarHabitaciones();
+        }
     }
 
     @FXML
     private void mostrarHabitaciones() {
         activarBoton(btnHabitaciones);
         lblTituloSeccion.setText("Gestión de Habitaciones");
-        cargarVista("/com/example/proyectofinaltap/habitaciones-view.fxml");
-    }
-
-    private void cargarVista(String rutaFxml) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFxml));
-            contenedorCentral.getChildren().setAll((javafx.scene.Node) loader.load());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectofinaltap/habitaciones-view.fxml"));
+            Node vista = loader.load();
+            HabitacionesController ctrl = loader.getController();
+            ctrl.setUsuarioActual(usuarioActual);
+            contenedorCentral.getChildren().setAll(vista);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,14 +61,28 @@ public class DashboardController {
     private void mostrarHuespedes() {
         activarBoton(btnHuespedes);
         lblTituloSeccion.setText("Directorio de Huéspedes");
-        cargarVista("/com/example/proyectofinaltap/huespedes-view.fxml");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectofinaltap/huespedes-view.fxml"));
+            Node vista = loader.load();
+            contenedorCentral.getChildren().setAll(vista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void mostrarReservaciones() {
         activarBoton(btnReservaciones);
         lblTituloSeccion.setText("Control de Reservaciones");
-        lblPlaceholder.setText("Aquí cargaremos el módulo de Reservaciones y cálculo de noches/total.");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectofinaltap/reservaciones-view.fxml"));
+            Node vista = loader.load();
+            ReservacionesController ctrl = loader.getController();
+            ctrl.setUsuarioActual(usuarioActual);
+            contenedorCentral.getChildren().setAll(vista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

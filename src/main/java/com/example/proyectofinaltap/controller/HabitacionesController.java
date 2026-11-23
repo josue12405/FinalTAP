@@ -23,7 +23,11 @@ public class HabitacionesController {
 
     private final HabitacionDAO habitacionDAO = new HabitacionDAO();
     private Habitacion habitacionSeleccionada = null;
-
+    public void setUsuarioActual(com.example.proyectofinaltap.model.Usuario usuario) {
+        if (usuario != null && "Recepcionista".equalsIgnoreCase(usuario.getRol())) {
+            lblEstado.setText("Modo Recepcionista: consulta y actualización de estado permitida.");
+        }
+    }
     @FXML
     public void initialize() {
         cmbTipo.getItems().addAll("Sencilla", "Doble", "Suite");

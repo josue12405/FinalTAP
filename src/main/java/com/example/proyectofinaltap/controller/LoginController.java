@@ -14,14 +14,9 @@ import java.io.IOException;
 
 public class LoginController {
 
-    @FXML
-    private TextField txtUsuario;
-
-    @FXML
-    private PasswordField txtPassword;
-
-    @FXML
-    private Label lblMensaje;
+    @FXML private TextField txtUsuario;
+    @FXML private PasswordField txtPassword;
+    @FXML private Label lblMensaje;
 
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
@@ -47,17 +42,17 @@ public class LoginController {
     private void abrirDashboard(Usuario user) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/proyectofinaltap/dashboard-view.fxml"));
-            Scene scene = new Scene(loader.load(), 950, 620);
+            Scene scene = new Scene(loader.load(), 1050, 660);
 
             DashboardController dashController = loader.getController();
-            dashController.setDatosUsuario(user.getNombreCompleto(), user.getRol());
+            dashController.setUsuario(user);
 
             Stage stage = (Stage) txtUsuario.getScene().getWindow();
             stage.setTitle("Grand Horizon — " + user.getNombreCompleto() + " (" + user.getRol() + ")");
             stage.setScene(scene);
             stage.centerOnScreen();
         } catch (IOException e) {
-            lblMensaje.setText("Falta crear dashboard-view.fxml en resources");
+            lblMensaje.setText("Error al cargar dashboard-view.fxml");
             e.printStackTrace();
         }
     }
