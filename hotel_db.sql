@@ -29,11 +29,14 @@ CREATE TABLE reservaciones (
                                id_reservacion INT PRIMARY KEY AUTO_INCREMENT,
                                id_huesped INT NOT NULL,
                                id_habitacion INT NOT NULL,
+                               id_usuario INT NOT NULL,
                                fecha_entrada DATE NOT NULL,
                                fecha_salida DATE NOT NULL,
+                               estado ENUM('Reservada', 'Check-In', 'Finalizada', 'Cancelada') DEFAULT 'Reservada',
                                total DECIMAL(10,2) NOT NULL,
-                               FOREIGN KEY (id_huesped) REFERENCES huespedes(id_huesped),
-                               FOREIGN KEY (id_habitacion) REFERENCES habitaciones(id_habitacion)
+                               FOREIGN KEY (id_huesped) REFERENCES huespedes(id_huesped) ON DELETE RESTRICT,
+                               FOREIGN KEY (id_habitacion) REFERENCES habitaciones(id_habitacion) ON DELETE RESTRICT,
+                               FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE RESTRICT
 );
 
 INSERT INTO usuarios (username, password_sha1, nombre_completo, rol) VALUES
