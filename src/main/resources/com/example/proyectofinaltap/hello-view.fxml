@@ -1,16 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.proyectofinaltap.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<StackPane prefHeight="520.0" prefWidth="780.0"
+           style="-fx-background-color: #eef2f6;"
+           xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.example.proyectofinaltap.controller.LoginController">
+
+    <!-- Tarjeta Principal -->
+    <HBox maxHeight="420.0" maxWidth="680.0"
+          style="-fx-background-color: #ffffff; -fx-background-radius: 16;">
+        <effect>
+            <DropShadow blurType="GAUSSIAN" height="28.0" radius="13.5" width="28.0">
+                <color>
+                    <Color opacity="0.12" />
+                </color>
+            </DropShadow>
+        </effect>
+
+        <!-- Panel Izquierdo (Branding del Hotel) -->
+        <VBox alignment="CENTER_LEFT" prefWidth="280.0" spacing="14.0"
+              style="-fx-background-color: linear-gradient(to bottom right, #0f172a, #1e3a8a); -fx-background-radius: 16 0 0 16;">
+            <padding>
+                <Insets bottom="35.0" left="30.0" right="30.0" top="35.0" />
+            </padding>
+
+            <Label text="GRAND HORIZON" textFill="#fbbf24">
+                <font>
+                    <Font name="System Bold" size="13.0" />
+                </font>
+            </Label>
+
+            <Label text="Sistema de&#10;Gestión Hotelera" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="24.0" />
+                </font>
+            </Label>
+
+            <Separator opacity="0.25" prefWidth="60.0" />
+
+            <Label text="Control integral de reservaciones, recepción, habitaciones y huéspedes."
+                   textFill="#cbd5e1" wrapText="true">
+                <font>
+                    <Font size="13.0" />
+                </font>
+            </Label>
+        </VBox>
+
+        <!-- Panel Derecho (Formulario de Acceso) -->
+        <VBox alignment="CENTER_LEFT" prefWidth="400.0" spacing="14.0" HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+            </padding>
+
+            <Label text="Bienvenido de nuevo" textFill="#0f172a">
+                <font>
+                    <Font name="System Bold" size="22.0" />
+                </font>
+            </Label>
+
+            <Label text="Ingresa tus credenciales para acceder al panel" textFill="#64748b">
+                <font>
+                    <Font size="13.0" />
+                </font>
+                <VBox.margin>
+                    <Insets bottom="8.0" />
+                </VBox.margin>
+            </Label>
+
+            <VBox spacing="6.0">
+                <Label text="Usuario" textFill="#334155">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtUsuario" prefHeight="38.0" promptText="Ej. admin"
+                           style="-fx-background-color: #f8fafc; -fx-border-color: #cbd5e1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 0 12 0 12; -fx-font-size: 13px;" />
+            </VBox>
+
+            <VBox spacing="6.0">
+                <Label text="Contraseña" textFill="#334155">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <PasswordField fx:id="txtPassword" prefHeight="38.0" promptText="••••••••"
+                               style="-fx-background-color: #f8fafc; -fx-border-color: #cbd5e1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 0 12 0 12; -fx-font-size: 13px;" />
+            </VBox>
+
+            <Label fx:id="lblMensaje" textFill="#dc2626" wrapText="true">
+                <font>
+                    <Font size="12.0" />
+                </font>
+            </Label>
+
+            <Button fx:id="btnIngresar" defaultButton="true" maxWidth="Infinity"
+                    onAction="#iniciarSesion" prefHeight="40.0"
+                    style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 8; -fx-cursor: hand;"
+                    text="Iniciar Sesión" />
+        </VBox>
+    </HBox>
+</StackPane>
